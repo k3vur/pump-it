@@ -7,9 +7,11 @@
   },
   "scripts": {
     "dev": "vite dev --port 3000",
+    "check": "npm run typecheck",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -31,9 +33,9 @@
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260421.2",
     "@vitejs/plugin-react": "^6.0.1",
     "jsdom": "^28.1.0",
-    "typescript": "^6.0.2",
     "vite": "^8.0.0",
     "vitest": "^4.1.5"
   },
