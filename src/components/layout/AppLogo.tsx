@@ -8,7 +8,7 @@ export function AppLogo({ className }: AppLogoProps) {
   return (
     <h1
       className={clsx(
-        "font-lexend text-logo-green font-black italic text-xl tracking-tighter uppercase",
+        "font-lexend text-xl font-black tracking-tighter text-primary uppercase italic",
         className,
       )}
     >
