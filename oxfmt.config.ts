@@ -1,7 +1,7 @@
 import { defineConfig } from "oxfmt";
 
 export default defineConfig({
-  ignorePatterns: ["src/routeTree.gen.ts", "dist/"],
+  ignorePatterns: ["**/routeTree.gen.ts", "dist/"],
   sortImports: true,
   sortTailwindcss: {
     functions: ["clsx"],

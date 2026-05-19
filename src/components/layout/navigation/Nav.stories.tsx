@@ -21,7 +21,7 @@ export const Default: Story = {
       <Nav.LinkItem to="." icon={Dumbbell} label="Workout">
         Workout
       </Nav.LinkItem>
-      <Nav.LinkItem to="/no" icon={Calendar} label="Plan">
+      <Nav.LinkItem to="/plan" icon={Calendar} label="Plan">
         Plan
       </Nav.LinkItem>
     </Nav.Bar>

@@ -11,6 +11,12 @@ const preview: Preview = {
       },
     },
 
+    backgrounds: {
+      options: {
+        dark: { name: "Dark", value: "oklch(21% 0.034 264.665)" },
+      },
+    },
+
     viewport: {
       options: {
         ...INITIAL_VIEWPORTS,
@@ -27,6 +33,7 @@ const preview: Preview = {
 
   initialGlobals: {
     viewport: { value: "iphone14pro", isRotated: false },
+    backgrounds: { value: "dark" },
   },
 };
 
