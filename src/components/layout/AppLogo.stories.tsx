@@ -6,10 +6,7 @@ const meta: Meta<typeof AppLogo> = {
   component: AppLogo,
   tags: ["autodocs"],
   parameters: {
-    layout: "centered",
-    viewport: {
-      defaultViewport: "mobile1",
-    },
+    layout: "",
   },
 };
 
