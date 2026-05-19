@@ -17,5 +17,9 @@ body {
 
 @theme {
   --font-lexend: "Lexend", ui-sans-serif, system-ui, sans-serif;
-  --color-logo-green: #ccff00;
+  --color-primary: #ccff00;
+  --color-gradient-primary-light: #f3ffca;
+  --color-gradient-primary-dark: #cafd00;
+  --color-gray-500: oklch(55.1% 0.027 264.364);
+  --color-gray-900: oklch(21% 0.034 264.665);
 }

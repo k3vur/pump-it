@@ -1,0 +1,29 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { Calendar, Dumbbell } from "lucide-react";
+
+import { Nav } from "./index";
+
+const meta: Meta<typeof Navigation> = {
+  title: "Components/Layout/Navigation",
+  tags: ["autodocs"],
+  parameters: {
+    layout: "fullscreen",
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Navigation>;
+
+export const Default: Story = {
+  render: () => (
+    <Nav.Bar>
+      <Nav.LinkItem to="." icon={Dumbbell} label="Workout">
+        Workout
+      </Nav.LinkItem>
+      <Nav.LinkItem to="/no" icon={Calendar} label="Plan">
+        Plan
+      </Nav.LinkItem>
+    </Nav.Bar>
+  ),
+};
