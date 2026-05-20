@@ -9,7 +9,7 @@ interface AppLayoutProps {}
 export function AppLayout({ children }: PropsWithChildren<AppLayoutProps>) {
   return (
     <div>
-      <header className="sticky top-0 w-full text-center py-2">
+      <header className="sticky top-0 w-full py-2 text-center">
         <AppLogo />
       </header>
       <section>{children}</section>
