@@ -27,10 +27,14 @@
     "@tanstack/react-router-devtools": "latest",
     "@tanstack/router-plugin": "^1.132.0",
     "clsx": "^2.1.1",
+    "es-toolkit": "^1.46.1",
     "lucide-react": "^0.545.0",
+    "neverthrow": "^8.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.4.3",
+    "zod-temporal": "^2.1.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
