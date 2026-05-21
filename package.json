@@ -32,7 +32,9 @@
     "neverthrow": "^8.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-lite-youtube-embed": "^3.5.1",
     "tailwindcss": "^4.1.18",
+    "temporal-polyfill": "^0.3.2",
     "zod": "^4.4.3",
     "zod-temporal": "^2.1.1"
   },

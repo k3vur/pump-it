@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap");
 @import "tailwindcss";
 
 * {
@@ -18,6 +19,7 @@ body {
 @theme {
   --font-*: initial; /* remove default fonts */
   --font-lexend: "Lexend", ui-sans-serif, system-ui, sans-serif;
+  --font-space-grotesk: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
 
   --color-*: initial; /* remove all default theme colors */
   --color-primary: #ccff00;
@@ -25,4 +27,5 @@ body {
   --color-gradient-primary-dark: #cafd00;
   --color-gray-500: oklch(55.1% 0.027 264.364);
   --color-gray-900: oklch(21% 0.034 264.665);
+  --color-white: white;
 }

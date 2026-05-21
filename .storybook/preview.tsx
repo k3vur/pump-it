@@ -1,6 +1,7 @@
 import "../src/styles.css";
 import type { Preview } from "@storybook/tanstack-react";
 import { INITIAL_VIEWPORTS } from "storybook/viewport";
+import "temporal-polyfill/global";
 
 const preview: Preview = {
   parameters: {
