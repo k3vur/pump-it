@@ -19,12 +19,18 @@ const InternalNavLinkItem = createLink(
             "w-20 rounded px-6 py-2",
             !isActive && "text-gray-500",
             isActive &&
-              "bg-gradient-to-br from-gradient-primary-light to-gradient-primary-dark text-gray-900",
+              "bg-linear-to-br from-gradient-primary-light to-gradient-primary-dark text-gray-900",
           )}
         >
-          <a ref={ref} {...linkProps} className="flex flex-col items-center gap-1">
+          <a
+            ref={ref}
+            {...linkProps}
+            className="flex flex-col items-center gap-1"
+          >
             <Icon size={28} />
-            <span className="font-lexend text-xs font-bold tracking-tight uppercase">{label}</span>
+            <span className="font-lexend text-xs font-bold tracking-tight uppercase">
+              {label}
+            </span>
           </a>
         </NavigationMenu.Item>
       );
@@ -32,6 +38,8 @@ const InternalNavLinkItem = createLink(
   ),
 );
 
-export const NavLinkItem: LinkComponent<typeof InternalNavLinkItem> = (props) => {
+export const NavLinkItem: LinkComponent<typeof InternalNavLinkItem> = (
+  props,
+) => {
   return <InternalNavLinkItem activeProps={{ isActive: true }} {...props} />;
 };

@@ -3,7 +3,7 @@ import { Calendar, Dumbbell } from "lucide-react";
 
 import { Nav } from "./index";
 
-const meta: Meta<typeof Navigation> = {
+const meta: Meta = {
   title: "Components/Layout/Navigation",
   tags: ["autodocs"],
   parameters: {
@@ -13,7 +13,7 @@ const meta: Meta<typeof Navigation> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Navigation>;
+type Story = StoryObj;
 
 export const Default: Story = {
   render: () => (

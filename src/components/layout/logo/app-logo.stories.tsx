@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { AppLogo } from "./AppLogo";
+import { AppLogo } from "./app-logo";
 
 const meta: Meta<typeof AppLogo> = {
   title: "Components/Layout/AppLogo",
