@@ -8,7 +8,7 @@ export function CardRoot({ className, children }: CardRootProps) {
     <div
       className={clsx(
         className,
-        "w-full min-w-24 min-h-16 rounded-xl overflow-hidden border-l-4 border-l-primary",
+        "w-full min-w-24 min-h-16 rounded-xl overflow-hidden border-l-4 border-l-primary bg-surface-card",
       )}
     >
       {children}

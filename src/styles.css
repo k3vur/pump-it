@@ -2,20 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap");
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body,
-#app {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-}
-
 @theme {
   --font-*: initial; /* remove default fonts */
   --font-lexend: "Lexend", ui-sans-serif, system-ui, sans-serif;
@@ -26,6 +12,7 @@ body {
   --color-gradient-primary-light: #f3ffca;
   --color-gradient-primary-dark: #cafd00;
   --color-gray-500: oklch(55.1% 0.027 264.364);
-  --color-gray-900: oklch(21% 0.034 264.665);
+  --color-surface: #0e0e0e;
+  --color-surface-card: #131313;
   --color-white: white;
 }

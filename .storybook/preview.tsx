@@ -14,7 +14,7 @@ const preview: Preview = {
 
     backgrounds: {
       options: {
-        dark: { name: "Dark", value: "oklch(21% 0.034 264.665)" },
+        dark: { name: "Dark", value: "#0e0e0e" },
       },
     },
 

@@ -3,7 +3,7 @@ import { Outlet, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import "../styles.css";
-import { AppLayout } from "#/components/layout/AppLayout";
+import { AppLayout } from "#/components/layout/app-layout";
 
 export const Route = createRootRoute({
   component: RootComponent,
