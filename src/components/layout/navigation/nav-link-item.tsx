@@ -18,8 +18,7 @@ const InternalNavLinkItem = createLink(
           className={clsx(
             "w-20 rounded px-6 py-2",
             !isActive && "text-gray-500",
-            isActive &&
-              "bg-linear-to-br from-gradient-primary-light to-gradient-primary-dark text-surface",
+            isActive && "text-primary",
           )}
         >
           <a
