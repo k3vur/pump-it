@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkoutRouteImport } from './routes/workout'
 import { Route as PlanRouteImport } from './routes/plan'
+import { Route as DebugRouteImport } from './routes/debug'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WorkoutRoute = WorkoutRouteImport.update({
@@ -23,6 +24,11 @@ const PlanRoute = PlanRouteImport.update({
   path: '/plan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DebugRoute = DebugRouteImport.update({
+  id: '/debug',
+  path: '/debug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
   '/workout': typeof WorkoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
   '/workout': typeof WorkoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
   '/workout': typeof WorkoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/plan' | '/workout'
+  fullPaths: '/' | '/debug' | '/plan' | '/workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/plan' | '/workout'
-  id: '__root__' | '/' | '/plan' | '/workout'
+  to: '/' | '/debug' | '/plan' | '/workout'
+  id: '__root__' | '/' | '/debug' | '/plan' | '/workout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DebugRoute: typeof DebugRoute
   PlanRoute: typeof PlanRoute
   WorkoutRoute: typeof WorkoutRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/debug': {
+      id: '/debug'
+      path: '/debug'
+      fullPath: '/debug'
+      preLoaderRoute: typeof DebugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DebugRoute: DebugRoute,
   PlanRoute: PlanRoute,
   WorkoutRoute: WorkoutRoute,
 }

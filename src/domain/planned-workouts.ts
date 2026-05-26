@@ -3,7 +3,7 @@ import {
   localStorageCollectionOptions,
 } from "@tanstack/react-db";
 import SuperJSON from "superjson";
-import { PlannedWorkout } from "../domain/schema";
+import { PlannedWorkout } from "./schema";
 
 export const plannedWorkoutsCollection = createCollection(
   localStorageCollectionOptions({

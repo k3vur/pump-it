@@ -1,10 +1,10 @@
+import { Temporals } from "#/temporals";
 import { z } from "zod";
-import { zt } from "zod-temporal";
 
 const BaseWorkout = z.object({
   id: z.string(),
   title: z.string(),
-  duration: zt.duration(),
+  duration: Temporals.Zod.duration(),
 });
 
 export const YouTubeWorkout = BaseWorkout.extend({
@@ -22,11 +22,17 @@ export const AvailableWorkouts = z.array(Workout);
 /**
  * Selected Workouts for a day
  */
-export const PlannedWorkout = z.object({
-  id: z.int(),
-  workout: Workout,
-  day: zt.plainDate(),
-});
+export const PlannedWorkout = z
+  .object({
+    id: z.int(),
+    workoutId: z.string(),
+    day: Temporals.Zod.plainDate(),
+  })
+  // add legacy date type fields to support querying
+  .transform((pw) => ({
+    ...pw,
+    dayAsDate: Temporals.Utils.plainDateToDate(pw.day),
+  }));
 
 /**
  * Finished Workout
@@ -34,7 +40,7 @@ export const PlannedWorkout = z.object({
 export const FinishedWorkout = z.object({
   id: z.int(),
   workout: Workout,
-  timestamp: zt.instant(),
+  timestamp: Temporals.Zod.instant(),
 });
 
 // Export inferred types

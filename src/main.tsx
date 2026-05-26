@@ -1,4 +1,5 @@
 import "temporal-polyfill/global";
+import "#/temporals/temporals-superjson";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 

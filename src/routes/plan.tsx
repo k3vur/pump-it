@@ -2,9 +2,10 @@ import { PageTitle } from "#/components/layout/page-title";
 import { Section } from "#/components/layout/section";
 import { Button } from "#/components/ui/button";
 import { YouTubeWorkoutCard } from "#/components/ui/youtube-workout-card";
-import { plannedWorkoutsCollection } from "#/db/planned-workouts";
-import type { Workout } from "#/domain/schema";
-import { WORKOUT_PLAN } from "#/workout-plan";
+import { availableWorkoutsCollection } from "#/domain/available-workouts";
+import { plannedWorkoutsCollection } from "#/domain/planned-workouts";
+import { Workout } from "#/domain/schema";
+import { Temporals } from "#/temporals";
 import { eq, useLiveQuery } from "@tanstack/react-db";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -14,28 +15,42 @@ export const Route = createFileRoute("/plan")({
 
 function RouteComponent() {
   const tomorrow = Temporal.Now.plainDateISO().add(
-    new Temporal.Duration(0, 0, 0, 1),
+    Temporal.Duration.from({ days: 1 }),
   );
   const { data: currentlyPlannedWorkouts } = useLiveQuery((q) =>
     q
       .from({ plannedWorkout: plannedWorkoutsCollection })
-      .where(({ plannedWorkout }) => eq(plannedWorkout.day, tomorrow))
-      .select(({ plannedWorkout }) => ({ ...plannedWorkout.workout })),
+      .join(
+        { workout: availableWorkoutsCollection },
+        ({ plannedWorkout, workout }) =>
+          eq(plannedWorkout.workoutId, workout.id),
+        "inner",
+      )
+      .where(({ plannedWorkout }) =>
+        eq(plannedWorkout.dayAsDate, Temporals.Utils.plainDateToDate(tomorrow)),
+      ),
+  );
+  const { data: availableWorkouts } = useLiveQuery((q) =>
+    q.from({ workout: availableWorkoutsCollection }),
   );
 
   return (
-    <PlanWorkoutPage
-      currentlyPlanned={currentlyPlannedWorkouts}
-      suggestions={WORKOUT_PLAN}
-      onPlanWorkout={(workout) => {
-        console.log("TEST");
-        plannedWorkoutsCollection.insert({
-          id: 1,
-          day: tomorrow,
-          workout,
-        });
-      }}
-    />
+    <>
+      <Button onClick={() => console.debug(currentlyPlannedWorkouts)}>
+        Log Planned Workouts
+      </Button>
+      <PlanWorkoutPage
+        currentlyPlanned={currentlyPlannedWorkouts.map((cpw) => cpw.workout)}
+        suggestions={availableWorkouts}
+        onPlanWorkout={(workout) => {
+          plannedWorkoutsCollection.insert({
+            id: 1,
+            day: tomorrow,
+            workoutId: workout.id,
+          });
+        }}
+      />
+    </>
   );
 }
 
