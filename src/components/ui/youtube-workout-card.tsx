@@ -1,8 +1,10 @@
-import type { YouTubeWorkout } from "#/domain/schema";
 import { Timer } from "lucide-react";
-import { Card } from "./card";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import type { PropsWithChildren } from "react";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+
+import type { YouTubeWorkout } from "#/domain/schema";
+
+import { Card } from "./card";
 
 type YouTubeWorkoutCardProps = Readonly<
   PropsWithChildren<{
@@ -10,32 +12,22 @@ type YouTubeWorkoutCardProps = Readonly<
   }>
 >;
 
-export function YouTubeWorkoutCard({
-  workout,
-  children,
-}: YouTubeWorkoutCardProps) {
+export function YouTubeWorkoutCard({ workout, children }: YouTubeWorkoutCardProps) {
   return (
     <Card.Root>
       <Card.Head className="aspect-video">
-        <LiteYouTubeEmbed
-          id={workout.video_id}
-          title={workout.title}
-          lazyLoad
-          autoplay
-        />
+        <LiteYouTubeEmbed id={workout.video_id} title={workout.title} lazyLoad autoplay />
       </Card.Head>
       <Card.Content className="flex flex-col gap-6">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <h3 className="font-lexend font-black text-2xl text-white leading-tight tracking-tighter">
+            <h3 className="font-lexend text-2xl leading-tight font-black tracking-tighter text-white">
               {workout.title}
             </h3>
             <div className="flex items-center gap-2 text-lg">
               <Timer className="text-primary" size={20} />
               <span className="font-space-grotesk font-bold text-gray-500">
-                {new Intl.DurationFormat("de", { style: "narrow" }).format(
-                  workout.duration,
-                )}
+                {new Intl.DurationFormat("de", { style: "narrow" }).format(workout.duration)}
               </span>
             </div>
           </div>

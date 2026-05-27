@@ -9,10 +9,10 @@ type AppLayoutProps = Readonly<PropsWithChildren<{}>>;
 export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div>
-      <header className="sticky top-0 w-full py-2 px-6">
+      <header className="w-full px-6 py-2">
         <AppLogo />
       </header>
-      <main className="px-6 flex flex-col gap-6">{children}</main>
+      <main className="flex flex-col gap-6 px-6">{children}</main>
       <Nav.Bar className="fixed bottom-0 w-full">
         <Nav.LinkItem to="/workout" icon={Dumbbell} label="Workout" />
         <Nav.LinkItem to="/plan" icon={Calendar} label="Plan" />

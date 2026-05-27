@@ -1,7 +1,8 @@
-import { Button } from "#/components/ui/button";
-import { plannedWorkoutsCollection } from "#/domain/planned-workouts";
 import { useLiveQuery } from "@tanstack/react-db";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { Button } from "#/components/ui/button";
+import { plannedWorkoutsCollection } from "#/domain/planned-workouts";
 
 export const Route = createFileRoute("/debug")({
   component: RouteComponent,
@@ -13,9 +14,7 @@ function RouteComponent() {
   );
   return (
     <div>
-      <Button onClick={() => console.debug(plannedWorkouts)}>
-        Log Planned Workouts
-      </Button>
+      <Button onClick={() => console.debug(plannedWorkouts)}>Log Planned Workouts</Button>
     </div>
   );
 }

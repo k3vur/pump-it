@@ -1,9 +1,7 @@
-import {
-  createCollection,
-  localStorageCollectionOptions,
-} from "@tanstack/react-db";
-import { Workout } from "./schema";
+import { createCollection, localStorageCollectionOptions } from "@tanstack/react-db";
 import SuperJSON from "superjson";
+
+import { Workout } from "./schema";
 
 export const availableWorkoutsCollection = createCollection(
   localStorageCollectionOptions({

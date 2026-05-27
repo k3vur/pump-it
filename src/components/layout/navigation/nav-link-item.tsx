@@ -21,15 +21,9 @@ const InternalNavLinkItem = createLink(
             isActive && "text-primary",
           )}
         >
-          <a
-            ref={ref}
-            {...linkProps}
-            className="flex flex-col items-center gap-1"
-          >
+          <a ref={ref} {...linkProps} className="flex flex-col items-center gap-1">
             <Icon size={28} />
-            <span className="font-lexend text-xs font-bold tracking-tight uppercase">
-              {label}
-            </span>
+            <span className="font-lexend text-xs font-bold tracking-tight uppercase">{label}</span>
           </a>
         </NavigationMenu.Item>
       );
@@ -37,8 +31,6 @@ const InternalNavLinkItem = createLink(
   ),
 );
 
-export const NavLinkItem: LinkComponent<typeof InternalNavLinkItem> = (
-  props,
-) => {
+export const NavLinkItem: LinkComponent<typeof InternalNavLinkItem> = (props) => {
   return <InternalNavLinkItem activeProps={{ isActive: true }} {...props} />;
 };

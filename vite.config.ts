@@ -18,13 +18,5 @@ const config = defineConfig({
     }),
     viteReact(),
   ],
-  test: {
-    projects: [
-      {
-        extends: true,
-        plugins: [],
-      },
-    ],
-  },
 });
 export default config;

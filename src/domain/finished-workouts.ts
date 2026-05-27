@@ -1,11 +1,9 @@
-import {
-  createCollection,
-  localStorageCollectionOptions,
-} from "@tanstack/react-db";
-import { FinishedWorkout } from "./schema";
+import { createCollection, localStorageCollectionOptions } from "@tanstack/react-db";
 import SuperJSON from "superjson";
 
-const finishedWorkoutsCollection = createCollection(
+import { FinishedWorkout } from "./schema";
+
+export const finishedWorkoutsCollection = createCollection(
   localStorageCollectionOptions({
     id: "finished-workouts",
     storageKey: "pump-it-finished-workouts",

@@ -1,5 +1,6 @@
-import { Temporals } from "#/temporals";
 import { z } from "zod";
+
+import { Temporals } from "#/temporals";
 
 const BaseWorkout = z.object({
   id: z.string(),

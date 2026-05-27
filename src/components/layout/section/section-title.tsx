@@ -4,9 +4,9 @@ type SectionTitleProps = Readonly<PropsWithChildren<{}>>;
 
 export function SectionTitle({ children }: SectionTitleProps) {
   return (
-    <h3 className="font-lexend font-black text-xs uppercase tracking-[0.2em] text-white/60 flex items-center gap-4">
+    <h3 className="flex items-center gap-4 font-lexend text-xs font-black tracking-[0.2em] text-white/60 uppercase">
       {children}
-      <div className="grow h-px bg-white/5"></div>
+      <div className="h-px grow bg-white/5"></div>
     </h3>
   );
 }

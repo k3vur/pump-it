@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { YouTubeWorkoutCard } from "./youtube-workout-card";
 import { Button } from "./button";
+import { YouTubeWorkoutCard } from "./youtube-workout-card";
 
 const meta: Meta<typeof YouTubeWorkoutCard> = {
   title: "Components/UI/YouTubeWorkoutCard",

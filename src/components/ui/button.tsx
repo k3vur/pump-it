@@ -7,16 +7,12 @@ import type { PropsWithChildren } from "react";
 
 type ButtonProps = Readonly<BaseUiButtonProps>;
 
-export function Button({
-  className,
-  children,
-  ...props
-}: PropsWithChildren<ButtonProps>) {
+export function Button({ className, children, ...props }: PropsWithChildren<ButtonProps>) {
   return (
     <BaseUIButton
       className={clsx(
         className,
-        "h-12 uppercase text-surface font-lexend font-black px-8 text-sm tracking-tight rounded-xl flex items-center justify-center gap-2 bg-linear-to-br from-gradient-primary-light to-gradient-primary-dark",
+        "flex h-12 items-center justify-center gap-2 rounded-xl bg-linear-to-br from-gradient-primary-light to-gradient-primary-dark px-8 font-lexend text-sm font-black tracking-tight text-surface uppercase",
       )}
       {...props}
     >
