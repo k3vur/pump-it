@@ -2,8 +2,10 @@ import { z } from "zod";
 
 import { Temporals } from "#/temporals";
 
+const WorkoutId = z.string();
+
 const BaseWorkout = z.object({
-  id: z.string(),
+  id: WorkoutId,
   title: z.string(),
   duration: Temporals.Zod.duration(),
 });
@@ -26,7 +28,7 @@ export const AvailableWorkouts = z.array(Workout);
 export const PlannedWorkout = z
   .object({
     id: z.int(),
-    workoutId: z.string(),
+    workoutId: WorkoutId,
     day: Temporals.Zod.plainDate(),
   })
   // add legacy date type fields to support querying
@@ -38,11 +40,17 @@ export const PlannedWorkout = z
 /**
  * Finished Workout
  */
-export const FinishedWorkout = z.object({
-  id: z.int(),
-  workout: Workout,
-  timestamp: Temporals.Zod.instant(),
-});
+export const FinishedWorkout = z
+  .object({
+    id: z.int(),
+    workoutId: WorkoutId,
+    timestamp: Temporals.Zod.instant(),
+  })
+  // add legacy date type fields to support querying
+  .transform((fw) => ({
+    ...fw,
+    timestampAsDate: Temporals.Utils.instantToDate(fw.timestamp),
+  }));
 
 // Export inferred types
 export type YouTubeWorkout = z.infer<typeof YouTubeWorkout>;

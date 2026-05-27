@@ -1,14 +1,12 @@
-import { eq, useLiveQuery } from "@tanstack/react-db";
+import { useLiveQuery } from "@tanstack/react-db";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { PageTitle } from "#/components/layout/page-title";
 import { Section } from "#/components/layout/section";
 import { Button } from "#/components/ui/button";
 import { YouTubeWorkoutCard } from "#/components/ui/youtube-workout-card";
-import { availableWorkoutsCollection } from "#/domain/available-workouts";
-import { plannedWorkoutsCollection } from "#/domain/planned-workouts";
+import { plannedWorkoutsQuery, planWorkout, useSuggestedWorkouts } from "#/domain";
 import { Workout } from "#/domain/schema";
-import { Temporals } from "#/temporals";
 
 export const Route = createFileRoute("/plan")({
   component: RouteComponent,
@@ -16,35 +14,17 @@ export const Route = createFileRoute("/plan")({
 
 function RouteComponent() {
   const tomorrow = Temporal.Now.plainDateISO().add(Temporal.Duration.from({ days: 1 }));
-  const { data: currentlyPlannedWorkouts } = useLiveQuery((q) =>
-    q
-      .from({ plannedWorkout: plannedWorkoutsCollection })
-      .join(
-        { workout: availableWorkoutsCollection },
-        ({ plannedWorkout, workout }) => eq(plannedWorkout.workoutId, workout.id),
-        "inner",
-      )
-      .where(({ plannedWorkout }) =>
-        eq(plannedWorkout.dayAsDate, Temporals.Utils.plainDateToDate(tomorrow)),
-      ),
-  );
-  const { data: availableWorkouts } = useLiveQuery((q) =>
-    q.from({ workout: availableWorkoutsCollection }),
-  );
+  const { data: currentlyPlannedWorkouts } = useLiveQuery({
+    query: plannedWorkoutsQuery(tomorrow),
+  });
+  const { data: suggestedWorkouts } = useSuggestedWorkouts(tomorrow);
 
   return (
     <>
-      <Button onClick={() => console.debug(currentlyPlannedWorkouts)}>Log Planned Workouts</Button>
       <PlanWorkoutPage
-        currentlyPlanned={currentlyPlannedWorkouts.map((cpw) => cpw.workout)}
-        suggestions={availableWorkouts}
-        onPlanWorkout={(workout) => {
-          plannedWorkoutsCollection.insert({
-            id: 1,
-            day: tomorrow,
-            workoutId: workout.id,
-          });
-        }}
+        currentlyPlanned={currentlyPlannedWorkouts}
+        suggestions={suggestedWorkouts}
+        onPlanWorkout={(workout) => planWorkout(tomorrow, workout)}
       />
     </>
   );

@@ -2,7 +2,7 @@ import { useLiveQuery } from "@tanstack/react-db";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Button } from "#/components/ui/button";
-import { plannedWorkoutsCollection } from "#/domain/planned-workouts";
+import { plannedWorkoutsCollection } from "#/domain";
 
 export const Route = createFileRoute("/debug")({
   component: RouteComponent,

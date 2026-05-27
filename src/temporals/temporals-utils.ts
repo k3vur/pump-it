@@ -6,3 +6,7 @@ export function plainDateToDate(plainDate: Temporal.PlainDate): Date {
     }).epochMilliseconds,
   );
 }
+
+export function instantToDate(instant: Temporal.Instant): Date {
+  return new Date(instant.epochMilliseconds);
+}
