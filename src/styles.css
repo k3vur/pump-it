@@ -15,4 +15,7 @@
   --color-surface: #0e0e0e;
   --color-surface-card: #131313;
   --color-white: white;
+  --color-destructive: #ff4444;
+  --color-gradient-destructive-light: #ff8a8a;
+  --color-gradient-destructive-dark: #ff0000;
 }
