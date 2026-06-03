@@ -3,7 +3,7 @@ name: Deploy Pump It SPA
 on:
   push:
     branches:
-      - gh-pages
+      - main
 
   # allow running manually
   workflow_dispatch:
