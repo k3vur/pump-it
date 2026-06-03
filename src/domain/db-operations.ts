@@ -4,22 +4,20 @@ import { Temporals } from "#/temporals";
 
 import {
   availableWorkoutsCollection,
+  finishedWorkoutId,
   finishedWorkoutsCollection,
   plannedWorkoutId,
   plannedWorkoutsCollection,
 } from "./db-collections";
-import { PlannedWorkout, Workout } from "./schema";
+import { FinishedWorkout, PlannedWorkout, Workout } from "./schema";
 
-export async function planWorkout(
-  day: Temporal.PlainDate,
-  workout: string | Workout,
-): Promise<void> {
+export function planWorkout(day: Temporal.PlainDate, workout: string | Workout) {
   const workoutId = typeof workout === "string" ? workout : workout.id;
-  plannedWorkoutsCollection.insert({ day, workoutId });
+  return plannedWorkoutsCollection.insert({ day, workoutId });
 }
 
-export async function removePlannedWorkout(plannedWorkout: PlannedWorkout): Promise<void> {
-  plannedWorkoutsCollection.delete(plannedWorkoutId(plannedWorkout));
+export function removePlannedWorkout(plannedWorkout: PlannedWorkout) {
+  return plannedWorkoutsCollection.delete(plannedWorkoutId(plannedWorkout));
 }
 
 export function plannedWorkoutsQuery(day: Temporal.PlainDate) {
@@ -64,12 +62,13 @@ export function useSuggestedWorkouts(day: Temporal.PlainDate) {
   );
 }
 
-export async function finishWorkout(
-  timestamp: Temporal.Instant,
-  workout: string | Workout,
-): Promise<void> {
+export function finishWorkout(timestamp: Temporal.Instant, workout: string | Workout) {
   const workoutId = typeof workout === "string" ? workout : workout.id;
-  finishedWorkoutsCollection.insert({ timestamp, workoutId });
+  return finishedWorkoutsCollection.insert({ timestamp, workoutId });
+}
+
+export function removeFinishedWorkout(finishedWorkout: FinishedWorkout) {
+  return finishedWorkoutsCollection.delete(finishedWorkoutId(finishedWorkout));
 }
 
 export function finishedWorkoutsQuery(day: Temporal.PlainDate) {

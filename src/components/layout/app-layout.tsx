@@ -14,7 +14,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       </header>
       <main className="flex flex-col gap-6 px-6">{children}</main>
       <Nav.Bar className="fixed bottom-0 w-full">
-        <Nav.LinkItem to="/workout" icon={Dumbbell} label="Workout" />
+        <Nav.LinkItem to="/todays-workout" icon={Dumbbell} label="Workout" />
         <Nav.LinkItem to="/plan" icon={Calendar} label="Plan" />
       </Nav.Bar>
     </div>

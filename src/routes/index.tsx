@@ -9,7 +9,7 @@ function Home() {
   useEffect(() => {
     const now = Temporal.Now.plainTimeISO();
     if (now.hour < 19) {
-      void navigate({ to: "/workout" });
+      void navigate({ to: "/todays-workout" });
     } else {
       void navigate({ to: "/plan" });
     }

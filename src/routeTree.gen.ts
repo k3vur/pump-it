@@ -9,14 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WorkoutRouteImport } from './routes/workout'
+import { Route as TodaysWorkoutRouteImport } from './routes/todays-workout'
 import { Route as PlanRouteImport } from './routes/plan'
 import { Route as DebugRouteImport } from './routes/debug'
 import { Route as IndexRouteImport } from './routes/index'
 
-const WorkoutRoute = WorkoutRouteImport.update({
-  id: '/workout',
-  path: '/workout',
+const TodaysWorkoutRoute = TodaysWorkoutRouteImport.update({
+  id: '/todays-workout',
+  path: '/todays-workout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlanRoute = PlanRouteImport.update({
@@ -39,43 +39,43 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
-  '/workout': typeof WorkoutRoute
+  '/todays-workout': typeof TodaysWorkoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
-  '/workout': typeof WorkoutRoute
+  '/todays-workout': typeof TodaysWorkoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
-  '/workout': typeof WorkoutRoute
+  '/todays-workout': typeof TodaysWorkoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/debug' | '/plan' | '/workout'
+  fullPaths: '/' | '/debug' | '/plan' | '/todays-workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/debug' | '/plan' | '/workout'
-  id: '__root__' | '/' | '/debug' | '/plan' | '/workout'
+  to: '/' | '/debug' | '/plan' | '/todays-workout'
+  id: '__root__' | '/' | '/debug' | '/plan' | '/todays-workout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DebugRoute: typeof DebugRoute
   PlanRoute: typeof PlanRoute
-  WorkoutRoute: typeof WorkoutRoute
+  TodaysWorkoutRoute: typeof TodaysWorkoutRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/workout': {
-      id: '/workout'
-      path: '/workout'
-      fullPath: '/workout'
-      preLoaderRoute: typeof WorkoutRouteImport
+    '/todays-workout': {
+      id: '/todays-workout'
+      path: '/todays-workout'
+      fullPath: '/todays-workout'
+      preLoaderRoute: typeof TodaysWorkoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/plan': {
@@ -106,7 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DebugRoute: DebugRoute,
   PlanRoute: PlanRoute,
-  WorkoutRoute: WorkoutRoute,
+  TodaysWorkoutRoute: TodaysWorkoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
