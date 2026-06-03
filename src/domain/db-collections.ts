@@ -18,6 +18,8 @@ export const availableWorkoutsCollection = createCollection(
   }),
 );
 
+availableWorkoutsCollection.createIndex((w) => w.id, { indexType: BasicIndex });
+
 availableWorkoutsCollection.onFirstReady(() => {
   if (availableWorkoutsCollection.size === 0) {
     availableWorkoutsCollection.insert({
@@ -43,6 +45,9 @@ export const finishedWorkoutsCollection = createCollection(
 export function finishedWorkoutId(finishedWorkout: FinishedWorkout): string {
   return `${finishedWorkout.workoutId}:${finishedWorkout.timestamp.toString()}`;
 }
+
+finishedWorkoutsCollection.createIndex((fw) => fw.workoutId, { indexType: BasicIndex });
+finishedWorkoutsCollection.createIndex((fw) => fw.timestampAsDate, { indexType: BTreeIndex });
 
 export const plannedWorkoutsCollection = createCollection(
   localStorageCollectionOptions({
