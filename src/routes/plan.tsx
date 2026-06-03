@@ -5,8 +5,13 @@ import { PageTitle } from "#/components/layout/page-title";
 import { Section } from "#/components/layout/section";
 import { Button } from "#/components/ui/button";
 import { YouTubeWorkoutCard } from "#/components/ui/youtube-workout-card";
-import { plannedWorkoutsQuery, planWorkout, useSuggestedWorkouts } from "#/domain";
-import { Workout } from "#/domain/schema";
+import {
+  plannedWorkoutsQuery,
+  planWorkout,
+  removePlannedWorkout,
+  useSuggestedWorkouts,
+} from "#/domain";
+import { PlannedWorkout, Workout } from "#/domain/schema";
 
 export const Route = createFileRoute("/plan")({
   component: RouteComponent,
@@ -25,18 +30,25 @@ function RouteComponent() {
         currentlyPlanned={currentlyPlannedWorkouts}
         suggestions={suggestedWorkouts}
         onPlanWorkout={(workout) => planWorkout(tomorrow, workout)}
+        onRemovePlannedWorkout={(workoutId) => removePlannedWorkout(workoutId)}
       />
     </>
   );
 }
 
 type PlanWorkoutPageProps = Readonly<{
-  currentlyPlanned: Workout[];
+  currentlyPlanned: (PlannedWorkout & { workout: Workout })[];
   suggestions: Workout[];
   onPlanWorkout: (workout: Workout) => void;
+  onRemovePlannedWorkout: (plannedWorkout: PlannedWorkout["id"]) => void;
 }>;
 
-function PlanWorkoutPage({ currentlyPlanned, suggestions, onPlanWorkout }: PlanWorkoutPageProps) {
+function PlanWorkoutPage({
+  currentlyPlanned,
+  suggestions,
+  onPlanWorkout,
+  onRemovePlannedWorkout,
+}: PlanWorkoutPageProps) {
   return (
     <>
       <PageTitle>Tomorrow's Plan</PageTitle>
@@ -44,7 +56,11 @@ function PlanWorkoutPage({ currentlyPlanned, suggestions, onPlanWorkout }: PlanW
         <Section.Title>Currently Planned</Section.Title>
         <Section.Content className="flex flex-col items-stretch gap-4">
           {currentlyPlanned.map((cpw) => (
-            <YouTubeWorkoutCard workout={cpw} key={cpw.id} />
+            <YouTubeWorkoutCard workout={cpw.workout} key={cpw.id}>
+              <Button variant="destructive" onClick={() => onRemovePlannedWorkout(cpw.id)}>
+                Remove from tomorrows Workout
+              </Button>
+            </YouTubeWorkoutCard>
           ))}
         </Section.Content>
       </Section.Root>

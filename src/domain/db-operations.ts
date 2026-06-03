@@ -7,7 +7,7 @@ import {
   finishedWorkoutsCollection,
   plannedWorkoutsCollection,
 } from "./db-collections";
-import { Workout } from "./schema";
+import { PlannedWorkout, Workout } from "./schema";
 
 async function findMaxId(): Promise<number> {
   const maxId = await queryOnce((q) =>
@@ -28,6 +28,11 @@ export async function planWorkout(
   plannedWorkoutsCollection.insert({ id: maxId + 1, day, workoutId });
 }
 
+export async function removePlannedWorkout(workout: number | PlannedWorkout): Promise<void> {
+  const deleteId = typeof workout === "number" ? workout : workout.id;
+  plannedWorkoutsCollection.delete(deleteId);
+}
+
 export function plannedWorkoutsQuery(day: Temporal.PlainDate) {
   return new Query()
     .from({ plannedWorkout: plannedWorkoutsCollection })
@@ -39,8 +44,7 @@ export function plannedWorkoutsQuery(day: Temporal.PlainDate) {
     .where(({ plannedWorkout }) =>
       eq(plannedWorkout.dayAsDate, Temporals.Utils.plainDateToDate(day)),
     )
-    .select(({ workout }) => ({ ...workout }))
-    .distinct();
+    .select(({ plannedWorkout, workout }) => ({ ...plannedWorkout, workout }));
 }
 
 export function recentWorkoutsQuery(cutoff: Temporal.PlainDate) {
