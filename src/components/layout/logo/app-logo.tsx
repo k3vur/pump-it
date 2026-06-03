@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cx } from "class-variance-authority";
 
 import logoUrl from "./logo-small.png";
 
@@ -9,7 +9,7 @@ interface AppLogoProps {
 export function AppLogo({ className }: AppLogoProps) {
   return (
     <h1
-      className={clsx(
+      className={cx(
         "inline-flex items-center justify-center font-lexend text-xl font-black tracking-tighter text-primary uppercase italic",
         className,
       )}

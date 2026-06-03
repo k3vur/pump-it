@@ -1,6 +1,6 @@
 import { NavigationMenu } from "@base-ui/react";
 import { createLink, type LinkComponent } from "@tanstack/react-router";
-import clsx from "clsx";
+import { cx } from "class-variance-authority";
 import type { LucideIcon } from "lucide-react";
 import { forwardRef, type AnchorHTMLAttributes } from "react";
 
@@ -15,7 +15,7 @@ const InternalNavLinkItem = createLink(
     ({ icon: Icon, label, isActive = false, ...linkProps }, ref) => {
       return (
         <NavigationMenu.Item
-          className={clsx(
+          className={cx(
             "w-20 rounded px-6 py-2",
             !isActive && "text-gray-500",
             isActive && "text-primary",

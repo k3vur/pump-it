@@ -19,7 +19,7 @@
           "configPath": null,
           "run": "onType",
           "disableNestedConfig": false,
-          "fixKind": "safeFix",
+          "fixKind": "safe_fix",
           "unusedDisableDirectives": "deny"
         }
       }
@@ -30,6 +30,11 @@
           "fmt.configPath": null,
           "run": "onSave"
         }
+      }
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "classFunctions": ["cva", "cx", "clsx"]
       }
     }
   }
