@@ -25,14 +25,12 @@ function RouteComponent() {
   const { data: suggestedWorkouts } = useSuggestedWorkouts(tomorrow);
 
   return (
-    <>
-      <PlanWorkoutPage
-        currentlyPlanned={currentlyPlannedWorkouts}
-        suggestions={suggestedWorkouts}
-        onPlanWorkout={(workout) => planWorkout(tomorrow, workout)}
-        onRemovePlannedWorkout={(workoutId) => removePlannedWorkout(workoutId)}
-      />
-    </>
+    <PlanWorkoutPage
+      currentlyPlanned={currentlyPlannedWorkouts}
+      suggestions={suggestedWorkouts}
+      onPlanWorkout={(workout) => planWorkout(tomorrow, workout)}
+      onRemovePlannedWorkout={removePlannedWorkout}
+    />
   );
 }
 
@@ -40,7 +38,7 @@ type PlanWorkoutPageProps = Readonly<{
   currentlyPlanned: (PlannedWorkout & { workout: Workout })[];
   suggestions: Workout[];
   onPlanWorkout: (workout: Workout) => void;
-  onRemovePlannedWorkout: (plannedWorkout: PlannedWorkout["id"]) => void;
+  onRemovePlannedWorkout: (plannedWorkout: PlannedWorkout) => void;
 }>;
 
 function PlanWorkoutPage({
@@ -56,8 +54,8 @@ function PlanWorkoutPage({
         <Section.Title>Currently Planned</Section.Title>
         <Section.Content className="flex flex-col items-stretch gap-4">
           {currentlyPlanned.map((cpw) => (
-            <YouTubeWorkoutCard workout={cpw.workout} key={cpw.id}>
-              <Button variant="destructive" onClick={() => onRemovePlannedWorkout(cpw.id)}>
+            <YouTubeWorkoutCard workout={cpw.workout} key={cpw.workoutId}>
+              <Button variant="destructive" onClick={() => onRemovePlannedWorkout(cpw)}>
                 Remove from tomorrows Workout
               </Button>
             </YouTubeWorkoutCard>

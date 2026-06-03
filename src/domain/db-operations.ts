@@ -1,36 +1,25 @@
-import { eq, gte, inArray, max, not, Query, queryOnce, useLiveQuery } from "@tanstack/react-db";
+import { and, eq, gte, inArray, lt, not, Query, useLiveQuery } from "@tanstack/react-db";
 
 import { Temporals } from "#/temporals";
 
 import {
   availableWorkoutsCollection,
   finishedWorkoutsCollection,
+  plannedWorkoutId,
   plannedWorkoutsCollection,
 } from "./db-collections";
 import { PlannedWorkout, Workout } from "./schema";
-
-async function findMaxId(): Promise<number> {
-  const maxId = await queryOnce((q) =>
-    q
-      .from({ plannedWorkouts: plannedWorkoutsCollection })
-      .select(({ plannedWorkouts }) => ({ maxId: max(plannedWorkouts.id) }))
-      .findOne(),
-  );
-  return maxId?.maxId ?? 0;
-}
 
 export async function planWorkout(
   day: Temporal.PlainDate,
   workout: string | Workout,
 ): Promise<void> {
-  const maxId = await findMaxId();
   const workoutId = typeof workout === "string" ? workout : workout.id;
-  plannedWorkoutsCollection.insert({ id: maxId + 1, day, workoutId });
+  plannedWorkoutsCollection.insert({ day, workoutId });
 }
 
-export async function removePlannedWorkout(workout: number | PlannedWorkout): Promise<void> {
-  const deleteId = typeof workout === "number" ? workout : workout.id;
-  plannedWorkoutsCollection.delete(deleteId);
+export async function removePlannedWorkout(plannedWorkout: PlannedWorkout): Promise<void> {
+  plannedWorkoutsCollection.delete(plannedWorkoutId(plannedWorkout));
 }
 
 export function plannedWorkoutsQuery(day: Temporal.PlainDate) {
@@ -64,7 +53,10 @@ export function useSuggestedWorkouts(day: Temporal.PlainDate) {
   const threeDaysAgo = day.subtract(Temporal.Duration.from({ days: 3 }));
   const { data: recentWorkouts } = useLiveQuery({ query: recentWorkoutsQuery(threeDaysAgo) });
   const { data: plannedWorkout } = useLiveQuery({ query: plannedWorkoutsQuery(day) });
-  const excludedWorkouts = [...recentWorkouts.map((w) => w.id), ...plannedWorkout.map((w) => w.id)];
+  const excludedWorkouts = [
+    ...recentWorkouts.map((w) => w.id),
+    ...plannedWorkout.map((w) => w.workoutId),
+  ];
   return useLiveQuery((q) =>
     q
       .from({ workout: availableWorkoutsCollection })

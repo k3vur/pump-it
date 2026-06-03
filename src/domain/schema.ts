@@ -27,7 +27,6 @@ export const AvailableWorkouts = z.array(Workout);
  */
 export const PlannedWorkout = z
   .object({
-    id: z.int(),
     workoutId: WorkoutId,
     day: Temporals.Zod.plainDate(),
   })
@@ -42,7 +41,6 @@ export const PlannedWorkout = z
  */
 export const FinishedWorkout = z
   .object({
-    id: z.int(),
     workoutId: WorkoutId,
     timestamp: Temporals.Zod.instant(),
   })

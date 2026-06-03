@@ -36,19 +36,27 @@ export const finishedWorkoutsCollection = createCollection(
     storageKey: "pump-it-finished-workouts",
     schema: FinishedWorkout,
     parser: SuperJSON,
-    getKey: (fw) => fw.id,
+    getKey: finishedWorkoutId,
   }),
 );
+
+export function finishedWorkoutId(finishedWorkout: FinishedWorkout): string {
+  return `${finishedWorkout.workoutId}:${finishedWorkout.timestamp.toString()}`;
+}
 
 export const plannedWorkoutsCollection = createCollection(
   localStorageCollectionOptions({
     id: "planned-workouts",
     storageKey: "pump-it-selected-workouts",
     schema: PlannedWorkout,
-    getKey: (pw) => pw.id,
+    getKey: plannedWorkoutId,
     parser: SuperJSON,
   }),
 );
+
+export function plannedWorkoutId(plannedWorkout: PlannedWorkout): string {
+  return `${plannedWorkout.workoutId}:${plannedWorkout.day.toString()}`;
+}
 
 plannedWorkoutsCollection.createIndex((pw) => pw.workoutId, { indexType: BasicIndex });
 plannedWorkoutsCollection.createIndex((pw) => pw.dayAsDate, { indexType: BTreeIndex });
