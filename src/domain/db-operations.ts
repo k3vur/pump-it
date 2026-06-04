@@ -11,6 +11,10 @@ import {
 } from "./db-collections";
 import { FinishedWorkout, PlannedWorkout, Workout } from "./schema";
 
+export function addAvailableWorkout(workout: Workout) {
+  return availableWorkoutsCollection.insert(workout);
+}
+
 export function planWorkout(day: Temporal.PlainDate, workout: string | Workout) {
   const workoutId = typeof workout === "string" ? workout : workout.id;
   return plannedWorkoutsCollection.insert({ day, workoutId });
@@ -55,10 +59,12 @@ export function useSuggestedWorkouts(day: Temporal.PlainDate) {
     ...recentWorkouts.map((w) => w.id),
     ...plannedWorkout.map((w) => w.workoutId),
   ];
-  return useLiveQuery((q) =>
-    q
-      .from({ workout: availableWorkoutsCollection })
-      .where(({ workout }) => not(inArray(workout.id, excludedWorkouts))),
+  return useLiveQuery(
+    (q) =>
+      q
+        .from({ workout: availableWorkoutsCollection })
+        .where(({ workout }) => not(inArray(workout.id, excludedWorkouts))),
+    [excludedWorkouts.length], // nasty hack to make suggestions update when workouts are added or removed
   );
 }
 

@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TodaysWorkoutRouteImport } from './routes/todays-workout'
 import { Route as PlanRouteImport } from './routes/plan'
 import { Route as DebugRouteImport } from './routes/debug'
+import { Route as AddVideoRouteImport } from './routes/add-video'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TodaysWorkoutRoute = TodaysWorkoutRouteImport.update({
@@ -29,6 +30,11 @@ const DebugRoute = DebugRouteImport.update({
   path: '/debug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AddVideoRoute = AddVideoRouteImport.update({
+  id: '/add-video',
+  path: '/add-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-video': typeof AddVideoRoute
   '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
   '/todays-workout': typeof TodaysWorkoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-video': typeof AddVideoRoute
   '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
   '/todays-workout': typeof TodaysWorkoutRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-video': typeof AddVideoRoute
   '/debug': typeof DebugRoute
   '/plan': typeof PlanRoute
   '/todays-workout': typeof TodaysWorkoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/debug' | '/plan' | '/todays-workout'
+  fullPaths: '/' | '/add-video' | '/debug' | '/plan' | '/todays-workout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/debug' | '/plan' | '/todays-workout'
-  id: '__root__' | '/' | '/debug' | '/plan' | '/todays-workout'
+  to: '/' | '/add-video' | '/debug' | '/plan' | '/todays-workout'
+  id: '__root__' | '/' | '/add-video' | '/debug' | '/plan' | '/todays-workout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddVideoRoute: typeof AddVideoRoute
   DebugRoute: typeof DebugRoute
   PlanRoute: typeof PlanRoute
   TodaysWorkoutRoute: typeof TodaysWorkoutRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DebugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/add-video': {
+      id: '/add-video'
+      path: '/add-video'
+      fullPath: '/add-video'
+      preLoaderRoute: typeof AddVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddVideoRoute: AddVideoRoute,
   DebugRoute: DebugRoute,
   PlanRoute: PlanRoute,
   TodaysWorkoutRoute: TodaysWorkoutRoute,

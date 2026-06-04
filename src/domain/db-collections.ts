@@ -20,18 +20,6 @@ export const availableWorkoutsCollection = createCollection(
 
 availableWorkoutsCollection.createIndex((w) => w.id, { indexType: BasicIndex });
 
-availableWorkoutsCollection.onFirstReady(() => {
-  if (availableWorkoutsCollection.size === 0) {
-    availableWorkoutsCollection.insert({
-      id: "8m02rbEXpr4",
-      type: "youtube",
-      video_id: "8m02rbEXpr4",
-      title: "15 Min Abs Workout",
-      duration: Temporal.Duration.from({ minutes: 15, seconds: 40 }),
-    });
-  }
-});
-
 export const finishedWorkoutsCollection = createCollection(
   localStorageCollectionOptions({
     id: "finished-workouts",

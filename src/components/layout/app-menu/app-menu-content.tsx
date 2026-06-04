@@ -13,9 +13,9 @@ export function AppMenuContent({ children }: AppMenuContentProps) {
         <Drawer.Popup className="box-border w-full translate-y-0 overflow-y-auto overscroll-contain rounded-t-xl border border-b-0 border-navbar-border bg-surface-card px-6 py-4 outline-0 transition-transform data-ending-style:translate-y-full data-starting-style:translate-y-full">
           <Drawer.Content className="mx-auto my-0 w-full max-w-xl">
             <Drawer.Title>
-              <Logo.TextLogo />
+              <Logo.TextLogo className="-ms-2" />
             </Drawer.Title>
-            {children}
+            <div className="flex flex-col gap-4 py-5 font-lexend text-white">{children}</div>
           </Drawer.Content>
         </Drawer.Popup>
       </Drawer.Viewport>

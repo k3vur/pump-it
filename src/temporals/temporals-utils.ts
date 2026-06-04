@@ -10,3 +10,7 @@ export function plainDateToDate(plainDate: Temporal.PlainDate): Date {
 export function instantToDate(instant: Temporal.Instant): Date {
   return new Date(instant.epochMilliseconds);
 }
+
+export function durationFromSeconds(seconds: number): Temporal.Duration {
+  return Temporal.Duration.from({ seconds }).round({ largestUnit: "hour", smallestUnit: "second" });
+}

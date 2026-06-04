@@ -1,4 +1,4 @@
-import { instantToDate, plainDateToDate } from "./temporals-utils";
+import { durationFromSeconds, instantToDate, plainDateToDate } from "./temporals-utils";
 import { zodDuration, zodInstant, zodPlainDate } from "./temporals-zod";
 
 export const Temporals = {
@@ -10,5 +10,6 @@ export const Temporals = {
   Utils: {
     plainDateToDate,
     instantToDate,
+    durationFromSeconds,
   },
 };
