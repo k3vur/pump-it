@@ -42,7 +42,7 @@ async function loadYouTubeApiScript(): Promise<void> {
   return singletonScriptLoadedPromise.promise;
 }
 
-loadYouTubeApiScript();
+void loadYouTubeApiScript();
 
 export type VideoInformation = Readonly<{
   videoId: string;

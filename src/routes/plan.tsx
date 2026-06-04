@@ -1,5 +1,6 @@
 import { useLiveQuery } from "@tanstack/react-db";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import z from "zod";
 
 import { PageTitle } from "#/components/layout/page-title";
 import { Section } from "#/components/layout/section";
@@ -13,28 +14,38 @@ import {
 } from "#/domain";
 import { PlannedWorkout, Workout } from "#/domain/schema";
 
+const planSearchSchema = z.object({
+  day: z.enum(["today", "tomorrow"]).default("tomorrow"),
+});
+
 export const Route = createFileRoute("/plan")({
   component: RouteComponent,
+  validateSearch: planSearchSchema,
 });
 
 function RouteComponent() {
-  const tomorrow = Temporal.Now.plainDateISO().add(Temporal.Duration.from({ days: 1 }));
+  const { day: dayParam } = Route.useSearch();
+  const day = Temporal.Now.plainDateISO().add(
+    Temporal.Duration.from({ days: dayParam === "tomorrow" ? 1 : 0 }),
+  );
   const { data: currentlyPlannedWorkouts } = useLiveQuery({
-    query: plannedWorkoutsQuery(tomorrow),
+    query: plannedWorkoutsQuery(day),
   });
-  const { data: suggestedWorkouts } = useSuggestedWorkouts(tomorrow);
+  const { data: suggestedWorkouts } = useSuggestedWorkouts(day);
 
   return (
     <PlanWorkoutPage
+      day={dayParam}
       currentlyPlanned={currentlyPlannedWorkouts}
       suggestions={suggestedWorkouts}
-      onPlanWorkout={(workout) => planWorkout(tomorrow, workout)}
+      onPlanWorkout={(workout) => planWorkout(day, workout)}
       onRemovePlannedWorkout={removePlannedWorkout}
     />
   );
 }
 
 type PlanWorkoutPageProps = Readonly<{
+  day: "tomorrow" | "today";
   currentlyPlanned: (PlannedWorkout & { workout: Workout })[];
   suggestions: Workout[];
   onPlanWorkout: (workout: Workout) => void;
@@ -42,6 +53,7 @@ type PlanWorkoutPageProps = Readonly<{
 }>;
 
 function PlanWorkoutPage({
+  day,
   currentlyPlanned,
   suggestions,
   onPlanWorkout,
@@ -49,27 +61,38 @@ function PlanWorkoutPage({
 }: PlanWorkoutPageProps) {
   return (
     <>
-      <PageTitle>Tomorrow's Plan</PageTitle>
+      <PageTitle>Plan {day}</PageTitle>
       <Section.Root>
-        <Section.Title>Currently Planned</Section.Title>
+        <Section.Title>Planned</Section.Title>
         <Section.Content className="flex flex-col items-stretch gap-4">
-          {currentlyPlanned.map((cpw) => (
-            <YouTubeWorkoutCard workout={cpw.workout} key={cpw.workoutId}>
-              <Button variant="destructive" onClick={() => onRemovePlannedWorkout(cpw)}>
-                Remove from tomorrows Workout
-              </Button>
-            </YouTubeWorkoutCard>
-          ))}
+          {currentlyPlanned.length === 0 && (
+            <div className="font-lexend text-white">Currently No Workouts Planned</div>
+          )}
+          {currentlyPlanned.length > 0 &&
+            currentlyPlanned.map((cpw) => (
+              <YouTubeWorkoutCard workout={cpw.workout} key={cpw.workoutId}>
+                <Button variant="destructive" onClick={() => onRemovePlannedWorkout(cpw)}>
+                  Remove from {day}
+                </Button>
+              </YouTubeWorkoutCard>
+            ))}
         </Section.Content>
       </Section.Root>
       <Section.Root>
         <Section.Title>Suggested</Section.Title>
         <Section.Content className="flex flex-col items-stretch gap-4">
-          {suggestions.map((sw) => (
-            <YouTubeWorkoutCard workout={sw} key={sw.id}>
-              <Button onClick={() => onPlanWorkout(sw)}>Add to tomorrows Workout</Button>
-            </YouTubeWorkoutCard>
-          ))}
+          {suggestions.length === 0 && (
+            <div className="flex flex-col gap-4 font-lexend text-white">
+              <p>No Workout Suggestions. You probably need to add YouTube Videos.</p>
+              <Link to="/add-video">Add Video</Link>
+            </div>
+          )}
+          {suggestions.length > 0 &&
+            suggestions.map((sw) => (
+              <YouTubeWorkoutCard workout={sw} key={sw.id}>
+                <Button onClick={() => onPlanWorkout(sw)}>Plan for {day}</Button>
+              </YouTubeWorkoutCard>
+            ))}
         </Section.Content>
       </Section.Root>
     </>
