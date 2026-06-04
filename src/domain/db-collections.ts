@@ -27,7 +27,7 @@ availableWorkoutsCollection.onFirstReady(() => {
       type: "youtube",
       video_id: "8m02rbEXpr4",
       title: "15 Min Abs Workout",
-      duration: new Temporal.Duration(0, 0, 0, 0, 0, 15, 40),
+      duration: Temporal.Duration.from({ minutes: 15, seconds: 40 }),
     });
   }
 });
