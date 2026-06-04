@@ -1,23 +1,23 @@
 import { cx } from "class-variance-authority";
 
-import logoUrl from "./logo-small.png";
+import { LogoIcon } from "./logo-icon";
 
-interface AppLogoProps {
+interface LogoTextProps {
   className?: string;
 }
 
-export function AppLogo({ className }: AppLogoProps) {
+export function LogoText({ className }: LogoTextProps) {
   return (
-    <h1
+    <div
       className={cx(
         "inline-flex items-center justify-center font-lexend text-xl font-black tracking-tighter text-primary uppercase italic",
         className,
       )}
     >
-      <img src={logoUrl} className="relative -right-1.5 h-8" />
+      <LogoIcon className="relative -right-1.5 h-8" />
       <span>
         <span className="hidden">P</span>ump It
       </span>
-    </h1>
+    </div>
   );
 }

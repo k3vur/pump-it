@@ -18,4 +18,8 @@
   --color-destructive: #ff4444;
   --color-gradient-destructive-light: #ff8a8a;
   --color-gradient-destructive-dark: #ff0000;
+
+  --color-navbar-base: rgba(50, 50, 50, 0.4);
+  --color-navbar-highlight: rgba(255, 255, 255, 0.2);
+  --color-navbar-border: rgba(255, 255, 255, 0.1);
 }

@@ -8,8 +8,15 @@ export interface NavBarProps {
 
 export function NavBar({ className, children }: PropsWithChildren<NavBarProps>) {
   return (
-    <NavigationMenu.Root className={cx("w-full bg-surface px-4 py-4 shadow", className)}>
-      <NavigationMenu.List className="flex justify-evenly gap-2">{children}</NavigationMenu.List>
+    <NavigationMenu.Root
+      className={cx(
+        "p-0.5 gap-2 border rounded-full border-navbar-border backdrop-blur-md bg-navbar-base shadow-xl",
+        className,
+      )}
+    >
+      <NavigationMenu.List className="flex items-center justify-evenly gap-2">
+        {children}
+      </NavigationMenu.List>
     </NavigationMenu.Root>
   );
 }

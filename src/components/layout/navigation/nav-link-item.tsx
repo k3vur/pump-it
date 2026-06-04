@@ -16,9 +16,9 @@ const InternalNavLinkItem = createLink(
       return (
         <NavigationMenu.Item
           className={cx(
-            "w-20 rounded px-6 py-2",
-            !isActive && "text-gray-500",
-            isActive && "text-primary",
+            "px-5 py-2 rounded-full",
+            !isActive && "text-white",
+            isActive && "text-primary bg-navbar-highlight",
           )}
         >
           <a ref={ref} {...linkProps} className="flex flex-col items-center gap-1">
