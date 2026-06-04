@@ -18,7 +18,12 @@ export function YouTubeWorkoutCard({ workout, children }: YouTubeWorkoutCardProp
   return (
     <Card.Root>
       <Card.Head className="aspect-video">
-        <LiteYouTubeEmbed id={workout.video_id} title={workout.title} lazyLoad autoplay />
+        <LiteYouTubeEmbed
+          id={workout.video_id}
+          title={workout.title}
+          lazyLoad
+          params="autoplay=1&playsinline=0"
+        />
       </Card.Head>
       <Card.Content className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
