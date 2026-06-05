@@ -1,14 +1,26 @@
 import { Link } from "@tanstack/react-router";
 import { Calendar, Dumbbell } from "lucide-react";
-import { type PropsWithChildren } from "react";
+import { useEffect, type PropsWithChildren } from "react";
+
+import { router } from "#/router";
 
 import { AppMenu } from "./app-menu";
+import { AppMenuHandle } from "./app-menu/app-menu-handle";
 import { Logo } from "./logo";
 import { Nav } from "./navigation";
 
 type AppLayoutProps = Readonly<PropsWithChildren<{}>>;
 
 export function AppLayout({ children }: AppLayoutProps) {
+  // make sure the drawer closes on each navigation event
+  useEffect(
+    () =>
+      router.subscribe("onBeforeNavigate", () => {
+        AppMenuHandle.close();
+      }),
+    [],
+  );
+
   return (
     <AppMenu.Container>
       <main className="flex flex-col gap-6 px-6 pt-5 pb-40 font-lexend text-white">{children}</main>
