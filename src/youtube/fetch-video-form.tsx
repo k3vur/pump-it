@@ -28,7 +28,14 @@ export function FetchVideoForm({ onReceiveVideoInformation }: FetchVideoFormProp
     },
   });
   return (
-    <form className="flex flex-col gap-4">
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
       <form.Field
         name="videoId"
         children={(field) => (
@@ -51,9 +58,7 @@ export function FetchVideoForm({ onReceiveVideoInformation }: FetchVideoFormProp
           </Field.Root>
         )}
       />
-      <Button type="submit" onClick={() => form.handleSubmit()}>
-        Fetch Video
-      </Button>
+      <Button type="submit">Fetch Video</Button>
     </form>
   );
 }

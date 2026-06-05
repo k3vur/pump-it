@@ -50,8 +50,10 @@ export type VideoInformation = Readonly<{
   title: string;
 }>;
 
-export async function fetchVideoInformation(videoId: string): Promise<VideoInformation> {
+export async function fetchVideoInformation(videoIdOrUrl: string): Promise<VideoInformation> {
   await loadYouTubeApiScript();
+  const videoId = extractVideoId(videoIdOrUrl);
+  console.log(videoId);
   const { promise, resolve } = Promise.withResolvers<VideoInformation>();
 
   const tempDiv = document.createElement("div");
@@ -86,4 +88,22 @@ export async function fetchVideoInformation(videoId: string): Promise<VideoInfor
     },
   });
   return promise;
+}
+
+export function extractVideoId(videoIdOrUrl: string): string {
+  // https://youtu.be/videoId?...
+  const matchFirstFormat = videoIdOrUrl.match(/^(https?:\/\/)?youtu\.be\/([^?]+).*$/);
+  if (matchFirstFormat !== null) {
+    return matchFirstFormat[2]!;
+  }
+
+  // https://www.youtube.com/watch?v=videoId&...
+  const matchSecondFormat = videoIdOrUrl.match(
+    /^(https?:\/\/)?(www\.)?youtube\.com\/watch\?v=([^&#]+).*$/,
+  );
+  if (matchSecondFormat !== null) {
+    return matchSecondFormat[3]!;
+  }
+
+  return videoIdOrUrl;
 }
