@@ -1,3 +1,4 @@
+import { Separator } from "@base-ui/react";
 import { Link } from "@tanstack/react-router";
 import { Calendar, Dumbbell } from "lucide-react";
 import { useEffect, type PropsWithChildren } from "react";
@@ -34,6 +35,10 @@ export function AppLayout({ children }: AppLayoutProps) {
         </Nav.Item>
       </Nav.Bar>
       <AppMenu.Content>
+        <a target="_blank" href="https://github.com/k3vur/pump-it">
+          About / GitHub{" "}
+        </a>
+        <Separator orientation="horizontal" className="h-px bg-white opacity-10" />
         <Link to="/add-video">Add Videos</Link>
       </AppMenu.Content>
     </AppMenu.Container>

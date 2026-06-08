@@ -1,191 +1,34 @@
-Welcome to your new TanStack Start app!
+# Pump It
 
-# Getting Started
+This is my personal small workout app / excuse to hand craft something with a few technologies I wanted to check out with almost no AI involved. After mainly building with Claude Code for a few months, I was itching for some good old from-scratch manual coding again.
 
-To run this application:
+I coded everything by hand, except for some design mockups and the app logo. I'd like to say I have enough taste to judge design, but I'm not awfully good at creating them; so I AI generated that part initially. I did some adjustments though, e.g. the initial mockups had a more traditional style fixed toolbar; I made it more modern looking by making the toolbar rounded and free floating.
 
-```bash
-npm install
-npm run dev
+## Tech Stack
+
+This app uses [TanStack Router](https://tanstack.com/router/latest) and [TanStack DB](https://tanstack.com/db/latest) to create something that is client only and has no server side. Everything is stored in `localStorage`.
+
+I also wanted to try running the latest and hippest TS toolchain consisting of [Vite 8](https://vite.dev), [TS Go](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0-beta/), [Oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html). Just to get a feel for it and because I haven't worked with it before, I used [Base UI](https://base-ui.com) and [TanStack Form](https://tanstack.com/form/latest). I also threw in the [JS Temporal API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal), althogh I felt the current lack of support for that one. [Storybook](https://storybook.js.org) and [Tailwind](https://tailwindcss.com) are probably almost not worth mentioning anymore.
+
+## Idea
+
+Being a remote developer, I naturally can use a little exercise. From Experience, to get myself motivated I need to create as little friction as possible. So the Idea is simple: I feed some YouTube workouts into this app to create a pool of workouts. Every evening before going to sleep, I can select and chose one of those workouts on my phone for tomorrow, creating some commitment in my head. Tomorrow I'll simply go to "Today's Workout" (also on my phone), hit play and then start AirPlaying to my TV.
+
+Again, everything is stored on local storage; there's no crucial data here so I don't care about longterm persistence. This is a very simple SPA.
+
+## Deployment / Try it
+
+Since it's an SPA, this App is hosted on GitHub pages and I'm pointing a personal subdomain at it. Check it out at [pumpit.kevur.me](https://pumpit.kevur.me). I'd recommend installing the page to the home screen if you want to use it regularly.
+
+## Development
+
+Use [pnpm](https://pnpm.io) to install all dependencies. The following scripts exits:
+
+```sh
+pnpm dev # run dev server
+pnpm check # run typechecking, linting and formatting
+pnpm storybook # run storybook
+pnpm build # build the thing
 ```
 
-# Building For Production
-
-To build this application for production:
-
-```bash
-npm run build
-```
-
-## Testing
-
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
-
-```bash
-npm run test
-```
-
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `npm install @tailwindcss/vite tailwindcss -D`
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "My App" },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-});
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from "@tanstack/react-start";
-
-const getServerTime = createServerFn({
-  method: "GET",
-}).handler(async () => {
-  return new Date().toISOString();
-});
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    getServerTime().then(setTime);
-  }, []);
-
-  return <div>Server time: {time}</div>;
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from "@tanstack/react-router";
-import { json } from "@tanstack/react-start";
-
-export const Route = createFileRoute("/api/hello")({
-  server: {
-    handlers: {
-      GET: () => json({ message: "Hello, World!" }),
-    },
-  },
-});
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from "@tanstack/react-router";
-
-export const Route = createFileRoute("/people")({
-  loader: async () => {
-    const response = await fetch("https://swapi.dev/api/people");
-    return response.json();
-  },
-  component: PeopleComponent,
-});
-
-function PeopleComponent() {
-  const data = Route.useLoaderData();
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+GitHub is setup to automatically build and deploy the SPA on each commit on `main`.
