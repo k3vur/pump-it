@@ -22,7 +22,8 @@ export function YouTubeWorkoutCard({ workout, children }: YouTubeWorkoutCardProp
           id={workout.video_id}
           title={workout.title}
           lazyLoad
-          params="autoplay=1&playsinline=0"
+          autoplay
+          params={{ playsinline: "0" }}
         />
       </Card.Head>
       <Card.Content className="flex flex-col gap-4">
