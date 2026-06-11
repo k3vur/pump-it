@@ -1,5 +1,6 @@
 import { useLiveQuery } from "@tanstack/react-db";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Dumbbell, Trash2 } from "lucide-react";
 import z from "zod";
 
 import { PageTitle } from "#/components/layout/page-title";
@@ -72,6 +73,7 @@ function PlanWorkoutPage({
             currentlyPlanned.map((cpw) => (
               <YouTubeWorkoutCard workout={cpw.workout} key={cpw.workoutId}>
                 <Button variant="destructive" onClick={() => onRemovePlannedWorkout(cpw)}>
+                  <Trash2 />
                   Remove from {day}
                 </Button>
               </YouTubeWorkoutCard>
@@ -90,7 +92,10 @@ function PlanWorkoutPage({
           {suggestions.length > 0 &&
             suggestions.map((sw) => (
               <YouTubeWorkoutCard workout={sw} key={sw.id}>
-                <Button onClick={() => onPlanWorkout(sw)}>Plan for {day}</Button>
+                <Button onClick={() => onPlanWorkout(sw)}>
+                  <Dumbbell />
+                  Plan for {day}
+                </Button>
               </YouTubeWorkoutCard>
             ))}
         </Section.Content>

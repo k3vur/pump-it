@@ -23,7 +23,10 @@ export function SwipeAction({ className, action, maxLeftOffset, children }: Swip
         drag="x"
         dragDirectionLock
         dragConstraints={{ left: maxLeftOffset, right: 0 }}
-        dragElastic={{ left: 0.15, right: 0 }}
+        dragElastic={{ left: 0.55, right: 0 }}
+        transition={{
+          type: "spring",
+        }}
       >
         {children}
       </motion.div>

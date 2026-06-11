@@ -1,9 +1,12 @@
 import { inArray, not, useLiveQuery } from "@tanstack/react-db";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BicepsFlexed, Trash2 } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
 import { PageTitle } from "#/components/layout/page-title";
 import { Section } from "#/components/layout/section";
 import { Button } from "#/components/ui/button";
+import { SwipeDelete } from "#/components/ui/swipe-delete";
 import { YouTubeWorkoutCard } from "#/components/ui/youtube-workout-card";
 
 import {
@@ -12,6 +15,7 @@ import {
   finishWorkout,
   plannedWorkoutsQuery,
   removeFinishedWorkout,
+  removePlannedWorkout,
   type PlannedWorkout,
   type Workout,
 } from "../domain";
@@ -97,7 +101,10 @@ function WorkoutPage({
           <Section.Content>
             {finishedWorkouts.map((fw) => (
               <YouTubeWorkoutCard workout={fw.workout} key={fw.workoutId}>
-                <Button onClick={() => onRemoveFinishedWorkout(fw)}>Remove Finished Workout</Button>
+                <Button variant="destructive" onClick={() => onRemoveFinishedWorkout(fw)}>
+                  <Trash2 />
+                  Remove Finished Workout
+                </Button>
               </YouTubeWorkoutCard>
             ))}
           </Section.Content>
