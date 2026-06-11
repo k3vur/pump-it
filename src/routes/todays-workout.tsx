@@ -72,15 +72,25 @@ function WorkoutPage({
           </Link>
         </div>
       )}
-      {plannedWorkouts.length > 0 && (
-        <>
-          {plannedWorkouts.map((pw) => (
-            <YouTubeWorkoutCard workout={pw.workout} key={pw.workoutId}>
-              <Button onClick={() => onFinishWorkout(pw.workout)}>Finish Workout</Button>
-            </YouTubeWorkoutCard>
-          ))}
-        </>
-      )}
+      <AnimatePresence mode="popLayout">
+        {plannedWorkouts.map((pw) => (
+          <motion.div
+            key={pw.workoutId}
+            exit={{ scaleY: 0, opacity: 0 }}
+            layout
+            transition={{ duration: 0.2 }}
+          >
+            <SwipeDelete onDelete={() => removePlannedWorkout(pw)}>
+              <YouTubeWorkoutCard workout={pw.workout}>
+                <Button onClick={() => onFinishWorkout(pw.workout)}>
+                  <BicepsFlexed />
+                  Finished Workout
+                </Button>
+              </YouTubeWorkoutCard>
+            </SwipeDelete>
+          </motion.div>
+        ))}
+      </AnimatePresence>
       {finishedWorkouts.length > 0 && (
         <Section.Root>
           <Section.Title>Todays Finished Workouts</Section.Title>
