@@ -21,6 +21,7 @@ export function YouTubeWorkoutCard({ workout, children }: YouTubeWorkoutCardProp
         <LiteYouTubeEmbed
           id={workout.video_id}
           title={workout.title}
+          poster="mqdefault"
           lazyLoad
           autoplay
           params={{ playsinline: "0" }}
