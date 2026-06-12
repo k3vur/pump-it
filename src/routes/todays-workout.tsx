@@ -1,11 +1,11 @@
 import { inArray, not, useLiveQuery } from "@tanstack/react-db";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { BicepsFlexed, Trash2 } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { BicepsFlexed, Calendar, Trash2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { PageTitle } from "#/components/layout/page-title";
 import { Section } from "#/components/layout/section";
-import { Button } from "#/components/ui/button";
+import { Button, ButtonLink } from "#/components/ui/button";
 import { SwipeDelete } from "#/components/ui/swipe-delete";
 import { YouTubeWorkoutCard } from "#/components/ui/youtube-workout-card";
 
@@ -78,9 +78,10 @@ function WorkoutPage({
             className="flex flex-col items-start gap-4 font-space-grotesk text-white"
           >
             <p>You haven't planned any workouts for today.</p>
-            <Link to="/plan" search={{ day: "today" }}>
+            <ButtonLink variant="primary" to="/plan" search={{ day: "today" }}>
+              <Calendar />
               Plan Workout
-            </Link>
+            </ButtonLink>
           </motion.div>
         )}
         {plannedWorkouts.map((pw) => (

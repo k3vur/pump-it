@@ -1,9 +1,11 @@
+import { mergeProps } from "@base-ui/react";
 import {
   Button as BaseUIButton,
   type ButtonProps as BaseUiButtonProps,
 } from "@base-ui/react/button";
+import { createLink } from "@tanstack/react-router";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { PropsWithChildren } from "react";
+import { forwardRef, type AnchorHTMLAttributes, type PropsWithChildren } from "react";
 
 type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 const buttonVariants = cva(
@@ -51,3 +53,15 @@ export function Button({ className, variant, children, ...props }: PropsWithChil
     </BaseUIButton>
   );
 }
+
+type InternalButtonLinkProps = Readonly<
+  AnchorHTMLAttributes<HTMLAnchorElement> & ButtonVariantProps
+>;
+
+export const ButtonLink = createLink(
+  forwardRef<HTMLAnchorElement, InternalButtonLinkProps>(
+    ({ className, variant, ...props }, ref) => (
+      <a ref={ref} {...mergeProps(props, { className: buttonVariants({ className, variant }) })} />
+    ),
+  ),
+);
