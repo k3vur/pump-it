@@ -63,26 +63,31 @@ function WorkoutPage({
   return (
     <>
       <PageTitle>Todays Workout</PageTitle>
-      {plannedWorkouts.length === 0 && finishedWorkouts.length > 0 && (
-        <div className="flex h-80 flex-col items-center justify-center">
-          <div className="font-lexend text-2xl text-white italic">You Pumped it 💪</div>
-        </div>
-      )}
-      {plannedWorkouts.length === 0 && finishedWorkouts.length === 0 && (
-        <div className="flex flex-col items-start gap-4 font-space-grotesk text-white">
-          <p>You haven't planned any workouts for today.</p>
-          <Link to="/plan" search={{ day: "today" }}>
-            Plan Workout
-          </Link>
-        </div>
-      )}
       <AnimatePresence mode="popLayout">
+        {plannedWorkouts.length === 0 && finishedWorkouts.length > 0 && (
+          <motion.div
+            exit={{ opacity: 0 }}
+            className="flex h-80 flex-col items-center justify-center"
+          >
+            <div className="font-lexend text-2xl text-white italic">You Pumped it 💪</div>
+          </motion.div>
+        )}
+        {plannedWorkouts.length === 0 && finishedWorkouts.length === 0 && (
+          <motion.div
+            exit={{ opacity: 0 }}
+            className="flex flex-col items-start gap-4 font-space-grotesk text-white"
+          >
+            <p>You haven't planned any workouts for today.</p>
+            <Link to="/plan" search={{ day: "today" }}>
+              Plan Workout
+            </Link>
+          </motion.div>
+        )}
         {plannedWorkouts.map((pw) => (
           <motion.div
             key={pw.workoutId}
-            exit={{ scaleY: 0, opacity: 0 }}
-            layout
-            transition={{ duration: 0.2 }}
+            layoutId={`workout-${pw.workoutId}`}
+            exit={{ opacity: 0, scaleY: 0.5 }}
           >
             <SwipeDelete onDelete={() => removePlannedWorkout(pw)}>
               <YouTubeWorkoutCard workout={pw.workout}>
@@ -100,12 +105,14 @@ function WorkoutPage({
           <Section.Title>Todays Finished Workouts</Section.Title>
           <Section.Content>
             {finishedWorkouts.map((fw) => (
-              <YouTubeWorkoutCard workout={fw.workout} key={fw.workoutId}>
-                <Button variant="destructive" onClick={() => onRemoveFinishedWorkout(fw)}>
-                  <Trash2 />
-                  Remove Finished Workout
-                </Button>
-              </YouTubeWorkoutCard>
+              <motion.div key={fw.workoutId} layoutId={`workout-${fw.workoutId}`}>
+                <YouTubeWorkoutCard workout={fw.workout}>
+                  <Button variant="destructive" onClick={() => onRemoveFinishedWorkout(fw)}>
+                    <Trash2 />
+                    Remove Finished Workout
+                  </Button>
+                </YouTubeWorkoutCard>
+              </motion.div>
             ))}
           </Section.Content>
         </Section.Root>
