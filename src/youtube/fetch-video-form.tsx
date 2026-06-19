@@ -38,6 +38,9 @@ export function FetchVideoForm({ onReceiveVideoInformation }: FetchVideoFormProp
     >
       <form.Field
         name="videoId"
+        // oxlint does not yet support setting the required rule:
+        // https://tanstack.com/form/latest/docs/framework/react/guides/basic-concepts#field
+        // oxlint-disable-next-line react/no-children-prop
         children={(field) => (
           <Field.Root
             className="flex flex-col gap-2"
