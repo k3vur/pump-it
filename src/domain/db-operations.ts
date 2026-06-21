@@ -52,7 +52,7 @@ export function recentWorkoutsQuery(cutoff: Temporal.PlainDate) {
 }
 
 export function useSuggestedWorkouts(day: Temporal.PlainDate) {
-  const threeDaysAgo = day.subtract(Temporal.Duration.from({ days: 3 }));
+  const threeDaysAgo = day.subtract(Temporal.Duration.from({ days: 2 }));
   const { data: recentWorkouts } = useLiveQuery({ query: recentWorkoutsQuery(threeDaysAgo) });
   const { data: plannedWorkout } = useLiveQuery({ query: plannedWorkoutsQuery(day) });
   const excludedWorkouts = [
