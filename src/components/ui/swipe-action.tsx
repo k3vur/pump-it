@@ -1,4 +1,4 @@
-import { cx } from "class-variance-authority";
+import { cn } from "cnfast";
 import { motion } from "motion/react";
 import type { PropsWithChildren, ReactNode } from "react";
 
@@ -14,8 +14,8 @@ type SwipeActionProps = Readonly<
 
 export function SwipeAction({ className, action, maxLeftOffset, children }: SwipeActionProps) {
   return (
-    <ZStack className={cx("w-full overflow-hidden select-none", className)}>
-      <div className={cx("flex items-stretch justify-end z-0 col-start-1 row-start-1")}>
+    <ZStack className={cn("w-full overflow-hidden select-none", className)}>
+      <div className={cn("flex items-stretch justify-end z-0 col-start-1 row-start-1")}>
         {action}
       </div>
       <motion.div

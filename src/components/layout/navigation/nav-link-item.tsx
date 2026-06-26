@@ -1,6 +1,6 @@
 import { NavigationMenu } from "@base-ui/react";
 import { createLink, type LinkComponent } from "@tanstack/react-router";
-import { cx } from "class-variance-authority";
+import { cn } from "cnfast";
 import type { LucideIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { forwardRef, type AnchorHTMLAttributes } from "react";
@@ -17,7 +17,7 @@ const InternalNavLinkItem = createLink(
   forwardRef<HTMLAnchorElement, InternalNaviLinkItemProps>(
     ({ icon: Icon, label, isActive = false, ...linkProps }, ref) => {
       return (
-        <NavigationMenu.Item className={cx(!isActive && "text-white", isActive && "text-primary ")}>
+        <NavigationMenu.Item className={cn(!isActive && "text-white", isActive && "text-primary ")}>
           <ZStack>
             {isActive && (
               <motion.div

@@ -1,4 +1,4 @@
-import { cx } from "class-variance-authority";
+import { cn } from "cnfast";
 
 import { LogoIcon } from "./logo-icon";
 
@@ -9,7 +9,7 @@ interface LogoTextProps {
 export function LogoText({ className }: LogoTextProps) {
   return (
     <div
-      className={cx(
+      className={cn(
         "inline-flex items-center justify-center font-lexend text-xl font-black tracking-tighter text-primary uppercase italic",
         className,
       )}
