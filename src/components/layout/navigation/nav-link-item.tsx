@@ -17,7 +17,7 @@ const InternalNavLinkItem = createLink(
   forwardRef<HTMLAnchorElement, InternalNaviLinkItemProps>(
     ({ icon: Icon, label, isActive = false, ...linkProps }, ref) => {
       return (
-        <NavigationMenu.Item className={cn(!isActive && "text-white", isActive && "text-primary ")}>
+        <NavigationMenu.Item className={cn(!isActive && "text-white", isActive && "text-primary")}>
           <ZStack>
             {isActive && (
               <motion.div

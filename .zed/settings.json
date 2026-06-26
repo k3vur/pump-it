@@ -34,7 +34,7 @@
     },
     "tailwindcss-language-server": {
       "settings": {
-        "classFunctions": ["cva", "cx", "clsx"]
+        "classFunctions": ["cva", "cn"]
       }
     }
   }

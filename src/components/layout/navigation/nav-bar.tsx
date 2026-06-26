@@ -10,7 +10,7 @@ export function NavBar({ className, children }: PropsWithChildren<NavBarProps>) 
   return (
     <NavigationMenu.Root
       className={cn(
-        "p-0.5 gap-2 border rounded-full border-navbar-border backdrop-blur-md bg-navbar-base shadow-xl",
+        "gap-2 rounded-full border border-navbar-border bg-navbar-base p-0.5 shadow-xl backdrop-blur-md",
         className,
       )}
     >

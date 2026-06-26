@@ -15,7 +15,7 @@ type SwipeActionProps = Readonly<
 export function SwipeAction({ className, action, maxLeftOffset, children }: SwipeActionProps) {
   return (
     <ZStack className={cn("w-full overflow-hidden select-none", className)}>
-      <div className={cn("flex items-stretch justify-end z-0 col-start-1 row-start-1")}>
+      <div className={cn("z-0 col-start-1 row-start-1 flex items-stretch justify-end")}>
         {action}
       </div>
       <motion.div
